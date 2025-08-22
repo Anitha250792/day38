@@ -1,0 +1,10 @@
+{% extends "blog/base.html" %}
+{% block title %}Create/Edit Post{% endblock %}
+{% block content %}
+<h2>{% if form.instance.pk %}Edit{% else %}Create{% endif %} Post</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-success">Save</button>
+</form>
+{% endblock %}

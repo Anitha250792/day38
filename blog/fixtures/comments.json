@@ -1,0 +1,24 @@
+[
+  {
+    "model": "blog.comment",
+    "pk": 1,
+    "fields": {
+      "post": 1,
+      "author": 2,
+      "content": "Nice first post!",
+      "created_at": "2025-08-05T11:00:00Z",
+      "active": true
+    }
+  },
+  {
+    "model": "blog.comment",
+    "pk": 2,
+    "fields": {
+      "post": 2,
+      "author": 1,
+      "content": "Thanks Alice for writing this!",
+      "created_at": "2025-08-06T09:15:00Z",
+      "active": true
+    }
+  }
+]

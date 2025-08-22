@@ -1,0 +1,38 @@
+{% extends "blog/base.html" %}
+{% block title %}{{ post.title }} - Django Blog{% endblock %}
+{% block content %}
+<article>
+  <h1>{{ post.title }}</h1>
+  <p class="text-muted">By {{ post.author }} • {{ post.created_at|date:"M d, Y H:i" }}</p>
+  <div class="mb-3">{{ post.content|linebreaks }}</div>
+
+  {% if user == post.author %}
+    <a class="btn btn-sm btn-outline-secondary" href="{% url 'blog:post_edit' post.pk %}">Edit</a>
+    <a class="btn btn-sm btn-outline-danger" href="{% url 'blog:post_delete' post.pk %}">Delete</a>
+  {% endif %}
+</article>
+
+<section class="mt-5">
+  <h4>Comments ({{ post.comments.count }})</h4>
+  <ul class="list-unstyled">
+    {% for comment in post.comments.all %}
+      <li class="mb-3">
+        <strong>{{ comment.author }}</strong> &middot; <small class="text-muted">{{ comment.created_at|date:"M d, Y H:i" }}</small>
+        <p>{{ comment.content|linebreaks }}</p>
+      </li>
+    {% empty %}
+      <li>No comments yet.</li>
+    {% endfor %}
+  </ul>
+
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <button class="btn btn-primary btn-sm">Add comment</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Login</a> to add a comment.</p>
+  {% endif %}
+</section>
+{% endblock %}
